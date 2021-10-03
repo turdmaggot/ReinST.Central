@@ -1,9 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Description>This class librar consists of Reiner's most used classes.</Description>
+    <Description>This class library consists of Reiner's most used classes.</Description>
     <Copyright>2021</Copyright>
+    <PackageProjectUrl>https://github.com/turdmaggot/ReinST.Central</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/turdmaggot/ReinST.Central</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <Company>ReinerTupaz.com</Company>
+    <Authors>Reiner Tupaz</Authors>
   </PropertyGroup>
 
   <ItemGroup>

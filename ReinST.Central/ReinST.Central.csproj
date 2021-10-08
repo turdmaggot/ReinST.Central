@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Description>This class library consists of Reiner's most used classes.</Description>
     <Copyright>2021</Copyright>
     <PackageProjectUrl>https://github.com/turdmaggot/ReinST.Central</PackageProjectUrl>
@@ -9,7 +9,7 @@
     <RepositoryType>Git</RepositoryType>
     <Company>ReinerTupaz.com</Company>
     <Authors>Reiner Tupaz</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
     <FileVersion>1.0.1.0</FileVersion>
   </PropertyGroup>

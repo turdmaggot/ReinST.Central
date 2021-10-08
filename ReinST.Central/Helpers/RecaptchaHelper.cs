@@ -5,6 +5,18 @@ namespace ReinST.Central.Helpers
 {
     public class ReCaptchaHelper
     {
+        /// <summary>
+        /// Validates ReCapcha response.
+        /// </summary>
+        /// <param name="EncodedResponse">
+        /// Encoded response from ReCaptcha.
+        /// </param>
+        /// <param name="PrivateKey">
+        /// Private API key for ReCaptcha.
+        /// </param>
+        /// <returns>
+        /// Returns true if ReCaptcha validation succeeds.
+        /// </returns>
         public static string Validate(string EncodedResponse, string PrivateKey)
         {
             var client = new System.Net.WebClient();

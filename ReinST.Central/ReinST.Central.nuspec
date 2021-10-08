@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>ReinST.Central</id>
+    <version>1.0.3</version>
+    <authors>Reiner Tupaz</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/turdmaggot/ReinST.Central</projectUrl>
+    <description>This class library consists of Reiner's most used classes.</description>
+    <releaseNotes>Changed target framework to Net 4.0.</releaseNotes>
+    <copyright>ReinST 2021</copyright>
+    <tags>ReinST</tags>
+  </metadata>
+</package>

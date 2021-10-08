@@ -409,7 +409,8 @@ namespace ReinST.Central.Helpers
             }
             try
             {
-                strInput = strInput.Replace(",", string.Empty).Replace("Php", string.Empty, StringComparison.OrdinalIgnoreCase).Trim();
+                strInput = strInput.ToLower();
+                strInput = strInput.Replace(",", string.Empty).Replace("php", string.Empty).Trim();
                 int decimalCount = 0;
                 int Val = strInput.Length - 1;
                 for (int x = 0; x <= Val; x++)

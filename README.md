@@ -5,6 +5,6 @@ https://www.nuget.org/packages/ReinST.Central/
 
 You can import this on your own project using the Nuget Package Manager. 
 
-To install: "PM> Install-Package ReinST.Central -Version 1.0.2"
+To install: "PM> Install-Package ReinST.Central -Version 1.0.3"
 
 Copyright 2021 https://www.reinertupaz.com

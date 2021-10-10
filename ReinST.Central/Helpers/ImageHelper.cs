@@ -4,6 +4,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
+using QRCoder;
 
 namespace ReinST.Central.Helpers
 {
@@ -14,8 +15,6 @@ namespace ReinST.Central.Helpers
         /// </summary>
         /// <param name="input">Input the text which a bitmap shall be generated from.</param>
         /// <returns>Bitmap of the image generated</returns>
-        /// <exception cref="System.ArgumentException"/>
-        /// <exception cref="System.Exception"/>
         public static Bitmap GenerateImageFromString(string input)
         {
             try
@@ -48,8 +47,6 @@ namespace ReinST.Central.Helpers
         /// </summary>
         /// <param name="bitmap">Bitmap to be converted to a base64 string</param>
         /// <returns>Base64 string of the bitmap</returns>
-        /// <exception cref="System.ArgumentException"/>
-        /// <exception cref="System.Exception"/>
         public static string GenerateBase64StringFromBitmap(Bitmap bitmap)
         {
             try
@@ -66,5 +63,24 @@ namespace ReinST.Central.Helpers
             }
         }
 
+        /// <summary>
+        /// This generates a simple QR Code from text input.
+        /// </summary>
+        /// <param name="input">Text to encode into a QR code.</param>
+        /// <returns>Generated QR code as Bitmap./returns>
+        public static Bitmap GenerateQRCode(string input)
+        {
+            try
+            {
+                QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                QRCodeData data = qrGenerator.CreateQrCode(input, QRCodeGenerator.ECCLevel.Q);
+                QRCode code = new QRCode(data);
+                return code.GetGraphic(20);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

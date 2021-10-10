@@ -53,6 +53,12 @@
       <HintPath>..\packages\Zetetic.Security.1.1.0.0\lib\Zetetic.Security.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="QRCoder">
+      <HintPath>..\packages\QRCoder.1.4.1\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManagement\DataAccess.cs" />

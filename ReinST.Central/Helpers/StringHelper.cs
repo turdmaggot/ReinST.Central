@@ -16,6 +16,7 @@ namespace ReinST.Central.Helpers
         #region Constants
 
         private const string HTMLRegex = @"<(.|\n)*?>";
+        private const string AESKey = "MAKV2SPBNI99212";
 
         #endregion
 
@@ -609,7 +610,7 @@ namespace ReinST.Central.Helpers
         /// <param name="plainText">
         /// String in plain text to verify.
         /// </param>
-        /// /// <param name="hash">
+        /// <param name="hash">
         /// Hash to verify the plain text against.
         /// </param>
         /// <returns>
@@ -618,6 +619,119 @@ namespace ReinST.Central.Helpers
         public static bool VerifyBCryptHash(string plainText, string hash)
         {
             return BCrypt.CheckPassword(plainText, hash);
+        }
+
+        /// <summary>
+        /// Decodes a base64-encoded string to its plaintext equivalent
+        /// </summary>
+        /// <param name="base64EncodedData">
+        /// base-64 string to decode.
+        /// </param>
+        /// <returns>
+        /// The decoded base64 string.
+        /// </returns>
+        public static string Base64Decode(string base64EncodedData)
+        {
+            try
+            {
+                var base64EncodedBytes = Convert.FromBase64String(base64EncodedData);
+                return Encoding.UTF8.GetString(base64EncodedBytes);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Encodes a string to base64.
+        /// </summary>
+        /// <param name="plainText">
+        /// String to encode.
+        /// </param>
+        /// <returns>
+        /// Base64-encoded string.
+        /// </returns>
+        public static string Base64Encode(string plainText)
+        {
+            try
+            {
+                var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+                return Convert.ToBase64String(plainTextBytes);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Encrypts a string via AES.
+        /// </summary>
+        /// <param name="input">
+        /// String to encrypt.
+        /// </param>
+        /// <returns>
+        /// AES-encrypted string.
+        /// </returns>
+        public static string AESEncrypt(string input)
+        {
+            try
+            {
+                byte[] clearBytes = Encoding.Unicode.GetBytes(input);
+                Aes encryptor = Aes.Create();
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(AESKey, new byte[]
+                {
+                    0x49,0x76,0x61,0x6e,0x20,0x4d,0x65,0x64,0x76,0x65,0x64,0x65,0x76
+                });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                MemoryStream ms = new MemoryStream();
+                CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write);
+                cs.Write(clearBytes, 0, clearBytes.Length);
+                cs.Close();
+                input = Convert.ToBase64String(ms.ToArray());
+                return input;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }     
+        }
+
+        /// <summary>
+        /// Decrypts an AES-encrypted string by this class.
+        /// </summary>
+        /// <param name="input">
+        /// String to decrypt.
+        /// </param>
+        /// <returns>
+        /// Decrypted string
+        /// </returns>
+        public static string AESDecrypt(string input)
+        {
+            try
+            {
+                input = input.Replace(" ", "+");
+                byte[] cipherBytes = Convert.FromBase64String(input);
+                Aes encryptor = Aes.Create();
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(AESKey, new byte[]
+                {
+                    0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+                });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                MemoryStream ms = new MemoryStream();
+                CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write);
+                cs.Write(cipherBytes, 0, cipherBytes.Length);
+                cs.Close();
+                input = Encoding.Unicode.GetString(ms.ToArray());
+                return input;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>

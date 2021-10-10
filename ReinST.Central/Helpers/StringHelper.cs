@@ -626,6 +626,7 @@ namespace ReinST.Central.Helpers
         /// </summary>
         /// <param name="base64EncodedData">
         /// base-64 string to decode.
+        /// </param>
         /// <returns>
         /// The decoded base64 string.
         /// </returns>
@@ -647,6 +648,7 @@ namespace ReinST.Central.Helpers
         /// </summary>
         /// <param name="plainText">
         /// String to encode.
+        /// </param>
         /// <returns>
         /// Base64-encoded string.
         /// </returns>
@@ -668,6 +670,7 @@ namespace ReinST.Central.Helpers
         /// </summary>
         /// <param name="input">
         /// String to encrypt.
+        /// </param>
         /// <returns>
         /// AES-encrypted string.
         /// </returns>
@@ -701,6 +704,7 @@ namespace ReinST.Central.Helpers
         /// </summary>
         /// <param name="input">
         /// String to decrypt.
+        /// </param>
         /// <returns>
         /// Decrypted string
         /// </returns>

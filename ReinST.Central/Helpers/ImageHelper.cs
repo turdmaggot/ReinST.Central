@@ -67,7 +67,7 @@ namespace ReinST.Central.Helpers
         /// This generates a simple QR Code from text input.
         /// </summary>
         /// <param name="input">Text to encode into a QR code.</param>
-        /// <returns>Generated QR code as Bitmap./returns>
+        /// <returns>Generated QR code as Bitmap.</returns>
         public static Bitmap GenerateQRCode(string input)
         {
             try

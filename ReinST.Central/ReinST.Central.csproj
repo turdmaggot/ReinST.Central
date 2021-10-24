@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManagement\DataAccess.cs" />
+    <Compile Include="Extensions\DataRowExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\RecaptchaHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />

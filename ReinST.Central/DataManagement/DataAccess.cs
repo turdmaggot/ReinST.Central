@@ -18,7 +18,7 @@ namespace ReinST.Central.DataManagement
         /// <summary>
         /// This is to make connecting to SQL databases a lot easier.
         /// </summary>
-        /// <param name="conStringConfigTag">
+        /// <param name="connStringConfigTag">
         /// The connection string defined inside the web.config file.
         /// </param>
         public DataAccess(string connStringConfigTag)
@@ -26,6 +26,39 @@ namespace ReinST.Central.DataManagement
             try
             {
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings[connStringConfigTag].ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// This is to make connecting to SQL databases a lot easier.
+        /// </summary>
+        /// <param name="dataSource">
+        /// Database Instance/URL on you which you want to connect to.
+        /// </param>
+        /// <param name="initialCatalog">
+        /// The database you want to query on.
+        /// </param>
+        /// <param name="userId">
+        /// Username to access the database.
+        /// </param>
+        /// <param name="password">
+        /// Password to access the database
+        /// </param>
+        public DataAccess(string dataSource, string initialCatalog, string userId, string password)
+        {
+            try
+            {
+                string strCon = "Data Source=" + dataSource +
+                    ";Initial Catalog="+ initialCatalog + 
+                    ";User Id=" + userId + 
+                    ";Password=" + password 
+                    + ";";
+
+                con = new SqlConnection(strCon);
             }
             catch (Exception ex)
             {

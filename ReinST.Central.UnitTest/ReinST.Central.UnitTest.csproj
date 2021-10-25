@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessTests\DataAccessTest1.cs" />
+    <Compile Include="Objects\SampleObject1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleTests\Sample1.cs" />
   </ItemGroup>

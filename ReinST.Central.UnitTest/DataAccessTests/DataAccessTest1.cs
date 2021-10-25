@@ -1,8 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using ReinST.Central.DataManagement;
 using System.IO;
 using System.Data.SqlClient;
+using System.Data;
+using ReinST.Central.Extensions;
+using ReinST.Central.UnitTest.Objects;
+using System.Collections.Generic;
+using System;
 
 namespace ReinST.Central.UnitTest.DataAccessTests
 {
@@ -16,7 +20,7 @@ namespace ReinST.Central.UnitTest.DataAccessTests
         private const string Password = "iamreiner";
 
         [TestMethod]
-        public void TestInsert()
+        public void TestCreate()
         {
             CreateTestTableIfNotExists();
 
@@ -34,6 +38,45 @@ namespace ReinST.Central.UnitTest.DataAccessTests
             }
         }
 
+        [TestMethod]
+        public void TestRead()
+        {
+            using (DataAccess da = new DataAccess(DatabaseInstance, InitialCatalog, Username, Password))
+            {
+                DataSet ds = da.ReturnDataSet("SELECT * FROM SampleTable1");
+                List<SampleObject1> objects = new List<SampleObject1>();
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        SampleObject1 newObj = new SampleObject1()
+                        {
+                            ID = row.FieldOrDefault<int>("ID"),
+                            DateAdded = row.FieldOrDefault<DateTime>("DateAdded"),
+                            FirstName = row.FieldOrDefault<string>("FirstName"),
+                            LastName = row.FieldOrDefault<string>("LastName")
+                        };
+
+                        objects.Add(newObj);
+                    }
+
+                    foreach (SampleObject1 obj in objects)
+                    {
+                        Console.WriteLine("ID: " + obj.ID + " Date Added: " + obj.DateAdded.ToShortDateString() + " Name: " + obj.FirstName + " " + obj.LastName);
+                    }
+
+                    Assert.AreEqual(ds.Tables[0].Rows.Count, objects.Count);
+                }
+                else
+                {
+                    Assert.Inconclusive();
+                }
+                
+                
+                //Assert.IsNotNull(newId);
+            }
+        }
 
         private void CreateTestTableIfNotExists()
         {

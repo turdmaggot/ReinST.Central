@@ -75,18 +75,19 @@ namespace ReinST.Central.DataManagement
         /// <summary>
         /// This is to return a set of values from a given SQL statement
         /// </summary>
-        /// <param name="strSQLQuery">The SQL query for the given method</param>
+        /// <param name="sqlQuery">The SQL query for the given method</param>
+        /// <param name="parameters">Optional parameters, if your query has parameters.</param>
         /// <returns>A DataSet object</returns>
-        public DataSet ReturnDataSet(string strSQLQuery, SqlParameter[] Parameters = null)
+        public DataSet ReturnDataSet(string sqlQuery, SqlParameter[] parameters = null)
         {
             DataSet dataSet = null;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand(strSQLQuery, con))
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
                 {
-                    if (Parameters != null)
-                        cmd.Parameters.AddRange(Parameters);
+                    if (parameters != null)
+                        cmd.Parameters.AddRange(parameters);
 
                     con.Open();
                     using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
@@ -111,19 +112,20 @@ namespace ReinST.Central.DataManagement
         /// <summary>
         /// This is to determine if value(s) returned by a given SQL statement exists
         /// </summary>
-        /// <param name="strSQLQuery">The SQL query for the given method</param>
-        public bool IsExisting(string strSQLQuery, SqlParameter[] Parameters = null)
+        /// <param name="sqlQuery">The SQL query for the given method</param>
+        /// <param name="parameters">Optional parameters, if your query has parameters.</param>
+        public bool IsExisting(string sqlQuery, SqlParameter[] parameters = null)
         {
             bool isExisting = false;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand(strSQLQuery, con))
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
                 {
                     con.Open();
 
-                    if (Parameters != null)
-                        cmd.Parameters.AddRange(Parameters);
+                    if (parameters != null)
+                        cmd.Parameters.AddRange(parameters);
 
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -147,18 +149,18 @@ namespace ReinST.Central.DataManagement
         /// <summary>
         /// This is to determine the number of entries returned by an SQL statement
         /// </summary>
-        /// <param name="strSQLQuery">The SQL query for the given method</param>
-        /// <param name="Parameter">The parameter(s) for the SQL query</param>
-        public int ReturnEntryCount(string strSQLQuery, SqlParameter[] Parameters = null)
+        /// <param name="sqlQuery">The SQL query for the given method</param>
+        /// <param name="parameters">The parameter(s) for the SQL query</param>
+        public int ReturnEntryCount(string sqlQuery, SqlParameter[] parameters = null)
         {
             int entrycount = 0;
 
             try
             {
-                using (SqlCommand cmd = new SqlCommand(strSQLQuery, con))
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
                 {
-                    if (Parameters != null)
-                        cmd.Parameters.AddRange(Parameters);
+                    if (parameters != null)
+                        cmd.Parameters.AddRange(parameters);
 
                     con.Open();
 
@@ -189,9 +191,9 @@ namespace ReinST.Central.DataManagement
         /// <summary>
         /// This is to return the primary key of an SQL INSERT statement
         /// </summary>
-        /// <param name="strSQLQuery">The SQL query for the given method</param>
-        /// <param name="Parameter">The parameter(s) for the SQL query</param>
-        public int ReturnIndex(string strSQLQuery, SqlParameter[] Parameters = null)
+        /// <param name="sqlInsertQuery">The SQL query for the given method</param>
+        /// <param name="parameters">The parameter(s) for the SQL query</param>
+        public int ReturnIndex(string sqlInsertQuery, SqlParameter[] parameters = null)
         {
             int newId = 0;
 
@@ -200,10 +202,10 @@ namespace ReinST.Central.DataManagement
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.Connection = con;
-                    cmd.CommandText = strSQLQuery.Trim() + "; SELECT SCOPE_IDENTITY()";
+                    cmd.CommandText = sqlInsertQuery.Trim() + "; SELECT SCOPE_IDENTITY()";
 
-                    if (Parameters != null)
-                        cmd.Parameters.AddRange(Parameters);
+                    if (parameters != null)
+                        cmd.Parameters.AddRange(parameters);
 
                     con.Open();
                     newId = Convert.ToInt32(cmd.ExecuteScalar());
@@ -224,16 +226,16 @@ namespace ReinST.Central.DataManagement
         /// <summary>
         /// This is to handle INSERT, UPDATE, and DELETE SQL statements
         /// </summary>
-        /// <param name="strSQLQuery">The SQL query for the given method</param>
-        /// <param name="strConnectionString">The connection string to the relevant database</param>
-        public void ExecuteNonQuery(string strSQLQuery, SqlParameter[] Parameters = null)
+        /// <param name="sqlQuery">The SQL query for the given method</param>
+        /// <param name="parameters">Optional parameters, if your query has parameters.</param>
+        public void ExecuteNonQuery(string sqlQuery, SqlParameter[] parameters = null)
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand(strSQLQuery, con))
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
                 {
-                    if (Parameters != null)
-                        cmd.Parameters.AddRange(Parameters);
+                    if (parameters != null)
+                        cmd.Parameters.AddRange(parameters);
 
                     con.Open();
                     cmd.ExecuteNonQuery();

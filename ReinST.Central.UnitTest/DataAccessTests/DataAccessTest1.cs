@@ -20,7 +20,7 @@ namespace ReinST.Central.UnitTest.DataAccessTests
             using (DataAccess da = new DataAccess(DatabaseInstance, InitialCatalog, Username, Password))
             {
                 string script = File.ReadAllText(@"SQLScripts\SampleTable1.sql");
-                da.ExecuteScript(script);
+                //da.ExecuteScript(script);
             }
         }
     }

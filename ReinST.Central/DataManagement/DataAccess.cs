@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace ReinST.Central.DataManagement
 {
@@ -239,6 +241,39 @@ namespace ReinST.Central.DataManagement
 
                     con.Open();
                     cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Executes SQL scripts from an SQL file.
+        /// </summary>
+        /// <param name="scriptContent">Content extracted from the SQL script file.</param>
+        public void ExecuteScript(string scriptContent)
+        {
+            try
+            {
+                IEnumerable<string> cmdStrings = Regex.Split(scriptContent, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+                con.Open();
+
+                foreach (string strCommand in cmdStrings)
+                {
+                    if (!string.IsNullOrWhiteSpace(strCommand.Trim()))
+                    {
+                        using (SqlCommand cmd = new SqlCommand(strCommand, con))
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
                 }
             }
             catch (Exception e)

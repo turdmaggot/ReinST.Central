@@ -7,6 +7,7 @@ using ReinST.Central.Extensions;
 using ReinST.Central.UnitTest.Objects;
 using System.Collections.Generic;
 using System;
+using ReinST.Central.Helpers;
 
 namespace ReinST.Central.UnitTest.DataAccessTests
 {
@@ -76,6 +77,15 @@ namespace ReinST.Central.UnitTest.DataAccessTests
                 
                 //Assert.IsNotNull(newId);
             }
+        }
+
+        [TestMethod]
+        public void TestHelper()
+        {
+            CreateTestTableIfNotExists();
+
+            //DataAccessHelper.
+
         }
 
         private void CreateTestTableIfNotExists()

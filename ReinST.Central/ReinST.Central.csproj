@@ -64,12 +64,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataManagement\DataAccess.cs" />
+    <Compile Include="Extensions\DataAccessConnectionExtensions.cs" />
     <Compile Include="Extensions\DataAccessParameterExtensions.cs" />
     <Compile Include="Extensions\DataRowExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\DataAccessHelper.cs" />
     <Compile Include="Helpers\RecaptchaHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Objects\DataAccessConnection.cs" />
     <Compile Include="Objects\DataAccessParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\MailHelper.cs" />

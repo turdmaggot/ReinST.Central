@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ReinST.Central.Extensions
 {
+    /// <summary>
+    /// Extensions for DataSet rows.
+    /// </summary>
     public static class DataRowExtensions
     {
         /// <summary>

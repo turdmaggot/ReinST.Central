@@ -7,6 +7,9 @@ using System.Text.RegularExpressions;
 
 namespace ReinST.Central.DataManagement
 {
+    /// <summary>
+    /// Main class for performing SQL functions.
+    /// </summary>
     public class DataAccess : IDisposable
     {
         #region Properties
@@ -238,6 +241,36 @@ namespace ReinST.Central.DataManagement
                 {
                     if (parameters != null)
                         cmd.Parameters.AddRange(parameters);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// This is to handle INSERT, UPDATE, and DELETE SQL statements
+        /// </summary>
+        /// <param name="sqlQuery">The SQL query for the given method</param>
+        /// <param name="parameters">List of SqlParameter objects.</param>
+        public void ExecuteNonQuery(string sqlQuery, List<SqlParameter> parameters)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
+                {
+                    foreach (SqlParameter parameter in parameters)
+                    {
+                        cmd.Parameters.Add(parameter);
+                    }
 
                     con.Open();
                     cmd.ExecuteNonQuery();

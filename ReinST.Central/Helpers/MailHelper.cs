@@ -5,6 +5,9 @@ using System.Net.Mail;
 
 namespace ReinST.Central.Helpers
 {
+    /// <summary>
+    /// Helper class for emails.
+    /// </summary>
     public static class MailHelper
     {
         /// <summary>

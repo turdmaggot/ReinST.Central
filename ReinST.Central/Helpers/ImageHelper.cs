@@ -8,6 +8,9 @@ using QRCoder;
 
 namespace ReinST.Central.Helpers
 {
+    /// <summary>
+    /// Helper class for images.
+    /// </summary>
     public static class ImageHelper
     {
         /// <summary>

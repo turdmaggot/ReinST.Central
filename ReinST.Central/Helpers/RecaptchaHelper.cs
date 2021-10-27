@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace ReinST.Central.Helpers
 {
+    /// <summary>
+    /// Helper class for ReCaptcha implementation.
+    /// </summary>
     public class ReCaptchaHelper
     {
         /// <summary>

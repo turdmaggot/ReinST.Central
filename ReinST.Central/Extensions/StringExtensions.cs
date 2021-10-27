@@ -2,6 +2,9 @@
 
 namespace ReinST.Central.Extensions
 {
+    /// <summary>
+    /// Extension for strings.
+    /// </summary>
     public static class StringExtensions
     {
         /// <summary>

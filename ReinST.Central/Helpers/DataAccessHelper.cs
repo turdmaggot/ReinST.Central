@@ -14,76 +14,76 @@ namespace ReinST.Central.Helpers
         /// <summary>
         /// This is to handle INSERT, UPDATE, and DELETE SQL statements
         /// </summary>
-        /// <param name="Query">The SQL query.</param>
-        /// <param name="ConnStringTag">Connection string tag of the connection to use, as defined on your config.</param>
-        /// <param name="DAParameter">Optional. Parameter for this query.</param>
-        public static void ExecuteNonQuery(string Query, string ConnStringTag, DataAccessParameter DAParameter = null) 
+        /// <param name="query">The SQL query.</param>
+        /// <param name="connStringTag">Connection string tag of the connection to use, as defined on your config.</param>
+        /// <param name="daParameter">Optional. Parameter for this query.</param>
+        public static void ExecuteNonQuery(string query, string connStringTag, DataAccessParameter daParameter = null) 
         {
-            using (DataAccess da = new DataAccess(ConnStringTag))
+            using (DataAccess da = new DataAccess(connStringTag))
             {
-                if (DAParameter != null)
+                if (daParameter != null)
                 {
-                    if (DAParameter.ParameterName != null)
+                    if (daParameter.ParameterName != null)
                     {
-                        SqlParameter[] param = { new SqlParameter(DAParameter.ParameterName, DAParameter.Value) };
-                        da.ExecuteNonQuery(Query, param);
+                        SqlParameter[] param = { new SqlParameter(daParameter.ParameterName, daParameter.Value) };
+                        da.ExecuteNonQuery(query, param);
                     }
                 }
                 else
-                    da.ExecuteNonQuery(Query);
+                    da.ExecuteNonQuery(query);
             }
         }
 
         /// <summary>
         /// This is to handle INSERT, UPDATE, and DELETE SQL statements
         /// </summary>
-        /// <param name="Query">The SQL query.</param>
-        /// <param name="ConnStringTag">Connection string tag of the connection to use, as defined on your config.</param>
-        /// <param name="DAParameters">Parametera for this query.</param>
-        public static void ExecuteNonQuery(string Query, string ConnStringTag, List<DataAccessParameter> DAParameters)
+        /// <param name="query">The SQL query.</param>
+        /// <param name="connStringTag">Connection string tag of the connection to use, as defined on your config.</param>
+        /// <param name="daParameters">Parametera for this query.</param>
+        public static void ExecuteNonQuery(string query, string connStringTag, List<DataAccessParameter> daParameters)
         {
-            using (DataAccess da = new DataAccess(ConnStringTag))
+            using (DataAccess da = new DataAccess(connStringTag))
             {
-                if (DAParameters.Count > 0)
-                    da.ExecuteNonQuery(Query, DAParameters.ToSqlParameterList());
+                if (daParameters.Count > 0)
+                    da.ExecuteNonQuery(query, daParameters.ToSqlParameterList());
             }
         }
 
         /// <summary>
         /// This is to handle INSERT, UPDATE, and DELETE SQL statements
         /// </summary>
-        /// <param name="Query">The SQL query.</param>
+        /// <param name="query">The SQL query.</param>
         /// <param name="daConn">DataAccessConnection to use.</param>
-        /// <param name="DAParameter">Optional. Parameter for this query.</param>
-        public static void ExecuteNonQuery(string Query, DataAccessConnection daConn, DataAccessParameter DAParameter = null)
+        /// <param name="daParameter">Optional. Parameter for this query.</param>
+        public static void ExecuteNonQuery(string query, DataAccessConnection daConn, DataAccessParameter daParameter = null)
         {
             using (DataAccess da = new DataAccess(daConn.DataSource, daConn.InitialCatalog, daConn.UserId, daConn.Password))
             {
-                if (DAParameter != null)
+                if (daParameter != null)
                 {
-                    if (DAParameter.ParameterName != null)
+                    if (daParameter.ParameterName != null)
                     {
-                        SqlParameter[] param = { new SqlParameter(DAParameter.ParameterName, DAParameter.Value) };
-                        da.ExecuteNonQuery(Query, param);
+                        SqlParameter[] param = { new SqlParameter(daParameter.ParameterName, daParameter.Value) };
+                        da.ExecuteNonQuery(query, param);
                     }
                 }
                 else
-                    da.ExecuteNonQuery(Query);
+                    da.ExecuteNonQuery(query);
             }
         }
 
         /// <summary>
         /// This is to handle INSERT, UPDATE, and DELETE SQL statements
         /// </summary>
-        /// <param name="Query">The SQL query.</param>
+        /// <param name="query">The SQL query.</param>
         /// <param name="daConn">DataAccessConnection to use.</param>
-        /// <param name="DAParameters">Parametera for this query.</param>
-        public static void ExecuteNonQuery(string Query, DataAccessConnection daConn, List<DataAccessParameter> DAParameters)
+        /// <param name="daParameters">Parametera for this query.</param>
+        public static void ExecuteNonQuery(string query, DataAccessConnection daConn, List<DataAccessParameter> daParameters)
         {
             using (DataAccess da = new DataAccess(daConn.DataSource, daConn.InitialCatalog, daConn.UserId, daConn.Password))
             {
-                if (DAParameters.Count > 0)
-                    da.ExecuteNonQuery(Query, DAParameters.ToSqlParameterList());
+                if (daParameters.Count > 0)
+                    da.ExecuteNonQuery(query, daParameters.ToSqlParameterList());
             }
         }
     }

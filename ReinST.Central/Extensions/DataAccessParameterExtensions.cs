@@ -20,9 +20,7 @@ namespace ReinST.Central.Extensions
         public static SqlParameter ToSqlParameter(this DataAccessParameter value)
         {
             if (value.ParameterName != null)
-            {
                 return new SqlParameter(value.ParameterName, value.Value);
-            }
             else
                 return null;
         }

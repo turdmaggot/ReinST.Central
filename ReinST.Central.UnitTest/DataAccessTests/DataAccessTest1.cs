@@ -101,13 +101,12 @@ namespace ReinST.Central.UnitTest.DataAccessTests
 
             if ((firstName.Equals(samples[itemCount - 1].FirstName, StringComparison.OrdinalIgnoreCase)) &&
                (lastName.Equals(samples[itemCount - 1].LastName, StringComparison.OrdinalIgnoreCase)))
-            {
                 pass = true;
-            }
 
             Assert.IsTrue(pass);
         }
 
+        [TestMethod]
         public void TestHelperExecuteNonQueryWithParameters()
         {
             CreateTestTableIfNotExists();
@@ -129,11 +128,76 @@ namespace ReinST.Central.UnitTest.DataAccessTests
 
             if ((firstName.Equals(samples[itemCount - 1].FirstName, StringComparison.OrdinalIgnoreCase)) &&
                (lastName.Equals(samples[itemCount - 1].LastName, StringComparison.OrdinalIgnoreCase)))
-            {
                 pass = true;
-            }
 
             Assert.IsTrue(pass);
+        }
+
+        [TestMethod]
+        public void TestHelperGetTableWithoutParameters()
+        {
+            CreateTestTableIfNotExists();
+
+            using (DataTable table = DataAccessHelper.GetTable("SELECT * FROM SampleTable1", DACon))
+            {
+                List<SampleObject1> objects = new List<SampleObject1>();
+
+                foreach (DataRow row in table.Rows)
+                {
+                    SampleObject1 newObj = new SampleObject1()
+                    {
+                        ID = row.FieldOrDefault<int>("ID"),
+                        DateAdded = row.FieldOrDefault<DateTime>("DateAdded"),
+                        FirstName = row.FieldOrDefault<string>("FirstName"),
+                        LastName = row.FieldOrDefault<string>("LastName")
+                    };
+
+                    objects.Add(newObj);
+                }
+
+                foreach (SampleObject1 obj in objects)
+                {
+                    Console.WriteLine("ID: " + obj.ID + " Date Added: " + obj.DateAdded.ToShortDateString() + " Name: " + obj.FirstName + " " + obj.LastName);
+                }
+
+                Assert.AreEqual(table.Rows.Count, objects.Count);
+            }
+        }
+
+        [TestMethod]
+        public void TestHelperGetTableWithParameters()
+        {
+            CreateTestTableIfNotExists();
+
+            List<DataAccessParameter> parameters = new List<DataAccessParameter>();
+            parameters.Add(new DataAccessParameter("@fn", "Reiner"));
+            parameters.Add(new DataAccessParameter("@ln", "Tupaz"));
+
+            using (DataTable table = DataAccessHelper.GetTable("SELECT * FROM SampleTable1 WHERE [FirstName]!=@fn AND [LastName]!=@ln", DACon, parameters))
+            {
+                List<SampleObject1> objects = new List<SampleObject1>();
+
+                foreach (DataRow row in table.Rows)
+                {
+                    SampleObject1 newObj = new SampleObject1()
+                    {
+                        ID = row.FieldOrDefault<int>("ID"),
+                        DateAdded = row.FieldOrDefault<DateTime>("DateAdded"),
+                        FirstName = row.FieldOrDefault<string>("FirstName"),
+                        LastName = row.FieldOrDefault<string>("LastName")
+                    };
+
+                    objects.Add(newObj);
+                }
+
+                foreach (SampleObject1 obj in objects)
+                {
+                    Console.WriteLine("ID: " + obj.ID + " Date Added: " + obj.DateAdded.ToShortDateString() + " Name: " + obj.FirstName + " " + obj.LastName);
+                }
+
+                Assert.AreEqual(table.Rows.Count, objects.Count);
+            }
+
         }
 
         private int ReadAndCountFromTestTable(out List<SampleObject1> objects)

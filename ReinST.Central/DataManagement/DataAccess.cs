@@ -115,6 +115,45 @@ namespace ReinST.Central.DataManagement
         }
 
         /// <summary>
+        /// This is to return a set of values from a given SQL statement
+        /// </summary>
+        /// <param name="sqlQuery">The SQL query for the given method</param>
+        /// <param name="parameters">Optional parameters, if your query has parameters.</param>
+        /// <returns>A DataSet object</returns>
+        public DataSet ReturnDataSet(string sqlQuery, List<SqlParameter> parameters)
+        {
+            DataSet dataSet = null;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand(sqlQuery, con))
+                {
+                    foreach (SqlParameter sqlParameter in parameters)
+                    {
+                        cmd.Parameters.Add(sqlParameter);
+                    }
+
+                    con.Open();
+                    using (SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd))
+                    {
+                        dataSet = new DataSet();
+                        dataAdapter.Fill(dataSet);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return dataSet;
+        }
+
+        /// <summary>
         /// This is to determine if value(s) returned by a given SQL statement exists
         /// </summary>
         /// <param name="sqlQuery">The SQL query for the given method</param>

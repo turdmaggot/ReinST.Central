@@ -11,5 +11,8 @@
     <releaseNotes>Changed target framework to Net 4.8.</releaseNotes>
     <copyright>ReinST 2021</copyright>
     <tags>ReinST</tags>
+	<dependencies>
+      <group targetFramework=".NETFramework4.8" />
+    </dependencies>
   </metadata>
 </package>

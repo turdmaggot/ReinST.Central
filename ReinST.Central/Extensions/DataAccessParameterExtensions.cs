@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using ReinST.Central.Objects;
+using System.Data.SqlTypes;
 
 namespace ReinST.Central.Extensions
 {
@@ -20,7 +21,16 @@ namespace ReinST.Central.Extensions
         public static SqlParameter ToSqlParameter(this DataAccessParameter value)
         {
             if (value.ParameterName != null)
+            {
+                if (value.Value is DateTime dateTime)
+                    if (dateTime < SqlDateTime.MinValue.Value)
+                        value.Value = SqlDateTime.Null;
+
+                if (value.Value == null)
+                    value.Value = DBNull.Value;
+
                 return new SqlParameter(value.ParameterName, value.Value);
+            } 
             else
                 return null;
         }

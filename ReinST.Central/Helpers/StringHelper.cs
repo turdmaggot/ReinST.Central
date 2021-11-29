@@ -526,17 +526,25 @@ namespace ReinST.Central.Helpers
         /// <param name="htmlString">
         /// Input string.
         /// </param>
+        /// <param name="decodeHTML">
+        /// Optional parameter, default value is false. Determines if HTML entities are to be decoded.
+        /// </param>
         /// <returns>
         /// Input string with HTML tags strpped off.
         /// </returns>
-        public static string StripHTML(string htmlString)
+        public static string StripHTML(string htmlString, bool decodeHTML = false)
         {
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(htmlString);
 
             if (htmlDoc == null)
-                return htmlString;
-
+            {
+                if (decodeHTML)
+                    return WebUtility.HtmlDecode(htmlString);
+                else
+                    return htmlString;
+            }
+                
             return htmlDoc.DocumentNode.InnerText;
         }
 
@@ -546,12 +554,23 @@ namespace ReinST.Central.Helpers
         /// <param name="htmlString">
         /// Input string.
         /// </param>
+        /// <param name="decodeHTML">
+        /// Optional parameter, default value is false. Determines if HTML entities are to be decoded.
+        /// </param>
         /// <returns>
         /// Input string with HTML tags strpped off.
         /// </returns>
-        public static string StripHTMLViaRegex(string htmlString)
+        public static string StripHTMLViaRegex(string htmlString, bool decodeHTML = false)
         {
-            return Regex.Replace(htmlString, HTMLRegex, string.Empty);
+            if (htmlString != null)
+            {
+                htmlString = Regex.Replace(htmlString, HTMLRegex, string.Empty);
+
+                if (decodeHTML)
+                    htmlString = WebUtility.HtmlDecode(htmlString);
+            }
+
+            return htmlString;
         }
 
         /// <summary>

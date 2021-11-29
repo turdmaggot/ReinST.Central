@@ -13,12 +13,32 @@ namespace ReinST.Central.Extensions
         /// <param name="value">
         /// Input string.
         /// </param>
+        /// <param name="decodeHTML">
+        /// Optional parameter, default value is false. Determines if HTML entities are to be decoded.
+        /// </param>
         /// <returns>
         /// Input string with HTML tags strpped off.
         /// </returns>
-        public static string StripHTML(this string value)
+        public static string StripHTML(this string value, bool decodeHTML = false)
         {
-            return StringHelper.StripHTML(value);
+            return StringHelper.StripHTML(value, decodeHTML);
+        }
+
+        /// <summary>
+        /// Strips HTML tags off a given string. This uses RegEx matching.
+        /// </summary>
+        /// <param name="value">
+        /// Input string.
+        /// </param>
+        /// <param name="decodeHTML">
+        /// Optional parameter, default value is false. Determines if HTML entities are to be decoded.
+        /// </param>
+        /// <returns>
+        /// Input string with HTML tags strpped off.
+        /// </returns>
+        public static string StripHTMLViaRegex(this string value, bool decodeHTML = false)
+        {
+            return StringHelper.StripHTMLViaRegex(value, decodeHTML);
         }
 
         /// <summary>

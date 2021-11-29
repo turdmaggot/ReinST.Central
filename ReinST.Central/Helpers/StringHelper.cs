@@ -537,15 +537,15 @@ namespace ReinST.Central.Helpers
             HtmlDocument htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(htmlString);
 
-            if (htmlDoc == null)
+            if (htmlDoc != null)
             {
+                htmlString = htmlDoc.DocumentNode.InnerText;
+
                 if (decodeHTML)
-                    return WebUtility.HtmlDecode(htmlString);
-                else
-                    return htmlString;
+                    htmlString = WebUtility.HtmlDecode(htmlString);
             }
-                
-            return htmlDoc.DocumentNode.InnerText;
+            
+            return htmlString;    
         }
 
         /// <summary>
